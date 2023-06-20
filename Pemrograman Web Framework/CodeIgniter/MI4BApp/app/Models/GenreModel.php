@@ -4,14 +4,14 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class FilmModel extends Model
+class GenreModel extends Model
 {
-    protected $table            = 'film';
+    protected $table            = 'genre';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $allowFields      = [];
 
-    public function getFilm(){
+        public function getGenre(){
 
         $data =
         [
@@ -45,30 +45,8 @@ class FilmModel extends Model
         return $data;
     }
 
-    public function getAllDataJoin()
-    {
-        
-    }
-
     //findALL()
     public function getAllData(){
         return $this->findAll();
      }
-    //find($id)
-     public function getDataByID($id){
-         return $this->find($id);
-     }
-     //where($column, $value)
-     public function getDataBy($data){
-         return $this->where("genre", $data)->findAll();
-     }
-    //orderBy($column, $order)
-     public function getOrderBy(){
-         return $this->orderBy("created_at","desc")->findAll();
-     }
-    //limit($limit, $offset)
-     public function getLimit(){
-         return $this->limit(10)->get()->getResultArray();
-    }
-
 }
