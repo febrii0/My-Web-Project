@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Buku tulis",
+    "category": "Alat tulis",
+    "price": 5000,
+    "quantity": 50
+  },
+  {
+    "name": "Pensil",
+    "category": "Alat tulis",
+    "price": 1000,
+    "quantity": 100
+  },
+  {
+    "name": "Spidol",
+    "category": "Alat tulis",
+    "price": 7000,
+    "quantity": 20
+  },
+  {
+    "name": "Kertas HVS",
+    "category": "Kertas",
+    "price": 20000,
+    "quantity": 10
+  },
+  {
+    "name": "Kertas Kado",
+    "category": "Kertas",
+    "price": 3000,
+    "quantity": 30
+  },
+  {
+    "name": "Buku Gambar",
+    "category": "Buku",
+    "price": 10000,
+    "quantity": 25
+  },
+  {
+    "name": "Buku Pelajaran",
+    "category": "Buku",
+    "price": 25000,
+    "quantity": 15
+  },
+  {
+    "name": "Tape",
+    "category": "Perlengkapan kantor",
+    "price": 5000,
+    "quantity": 40
+  },
+  {
+    "name": "Stapler",
+    "category": "Perlengkapan kantor",
+    "price": 20000,
+    "quantity": 5
+  },
+  {
+    "name": "Kotak Pensil",
+    "category": "Perlengkapan kantor",
+    "price": 15000,
+    "quantity": 10
+  }
+]
