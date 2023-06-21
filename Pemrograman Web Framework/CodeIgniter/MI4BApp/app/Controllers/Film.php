@@ -6,16 +6,18 @@ use App\Controllers\BaseController;
 
 //step1
 use App\Models\FilmModel;
-
+use App\Models\GenreModel; //tambahkan (1)
 class Film extends BaseController
 {
     //step2 prperti
     protected $Film;
+    protected $Genre; // tambahkan (2)
     //step 3 buat fungsi construct untuk inisiasi class model
     public function __construct()
     {
         //step 4 panggil property film
         $this->Film = new FilmModel();
+        $this->Genre = new GenreModel(); //tambahkan (3)
     }
 
 
@@ -32,6 +34,29 @@ class Film extends BaseController
     public function all(){
         $data['v_film'] = $this->Film->getAllDataJoin();
         return view("film/v_film",$data);
+    }
+
+    public function add(){
+        $data["v_genre"] = $this->Genre->getAllData();
+        return view("film/add", $data);
+    }
+
+    public function store(){
+        $image = $this->request->getFile('cover');
+
+        //Generate nama file yang unik
+        $imageName = $image->getRandomName();
+        //Pindahkan file ke direktori penyimpanan
+        $image->move(ROOTPATH .'public/asstes/cover', $imageName);
+
+        $data = [
+            'nama_film' => $this->request->getPost('nama_film'),
+            'id_genre' => $this->request->getPost('id_genre'),
+            'duration' => $this->request->getPost('duration'),
+            'cover' => $imageName,
+        ];
+        $this->Film->save($data);
+        return redirect()->to('/film');
     }
 
     public function film_by_id(){
