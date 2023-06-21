@@ -8,6 +8,7 @@
 
     <!-- import CSS -->
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <script src="/assets/js/unpkg.com_sweetalert.min.js.js"></script>
 </head>
 
 <body>
@@ -53,6 +54,16 @@
         </footer>
     </div>
 
+    <?php if (session()->getFlashdata('success')): ?>
+        <script>
+            swal({
+                title: "Informasi",
+                text: "<?= session()->getFlashdata('success') ?>",
+                icon: "success",
+                button: "OK",
+            });
+        </script>
+    <?php endif; ?>
 
 </body>
 

@@ -87,7 +87,7 @@ class Film extends BaseController
         //Generate nama file yang unik
         $imageName = $image->getRandomName();
         //Pindahkan file ke direktori penyimpanan
-        $image->move(ROOTPATH . 'public/asstes/cover', $imageName);
+        $image->move(ROOTPATH . 'public/assets/cover', $imageName);
 
         $data = [
             'nama_film' => $this->request->getPost('nama_film'),
@@ -96,6 +96,7 @@ class Film extends BaseController
             'cover' => $imageName,
         ];
         $this->Film->save($data);
+        session()->setFlashdata('success', 'Data berhasil disimpan.'); // tambahkan ini
         return redirect()->to('/film');
     }
 

@@ -11,7 +11,7 @@
                             <h1>Semua Film</h1>
                         </div>
                         <div class="col-md-6 text-end">
-                            <a href="/film/add" class="btn btn-primary">Tambah Data</a>
+                            <a href="/film/add" class="btn btn-primary m-1 mt-2">Tambah Data</a>
                     </div>
                 </div>
             </div>
