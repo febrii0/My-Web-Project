@@ -7,6 +7,7 @@ use App\Controllers\BaseController;
 //step1
 use App\Models\FilmModel;
 use App\Models\GenreModel; //tambahkan (1)
+
 class Film extends BaseController
 {
     //step2 prperti
@@ -28,26 +29,65 @@ class Film extends BaseController
         //array
         $data['data_film'] = $this->Film->getAllDataJoin();
         return view("film/index", $data);
-        
+
     }
 
-    public function all(){
+    public function all()
+    {
         $data['v_film'] = $this->Film->getAllDataJoin();
-        return view("film/v_film",$data);
+        return view("film/v_film", $data);
     }
 
-    public function add(){
+    public function add()
+    {
         $data["v_genre"] = $this->Genre->getAllData();
+        $data["errors"] = session('errors');
         return view("film/add", $data);
     }
 
-    public function store(){
-        $image = $this->request->getFile('cover');
+    public function store()
+    {
 
+        $validation = $this->validate([
+            'nama_film' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom Nama Film harus diisi.'
+                ]
+            ],
+            'id_genre' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom Genre harus diisi.'
+                ]
+            ],
+            'duration' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom Durasi harus diisi.'
+                ]
+            ],
+            'cover' => [
+                'rules' => 'uploaded[cover]|mime_in[cover,image/jpg,image/jpeg,image/png]|max_size[cover,2048]',
+                'errors' => [
+                    'uploaded' => 'Kolom Cover harus berisi file.',
+                    'mime_in' => 'Tipe file pada kolom Cover harus berupa jpg,jpeg, atau png.',
+                    'max_size' => 'Ukuran file pada kolom Cover melebihi batas maximum.'
+                ]
+            ]
+        ]);
+
+        if (!$validation) {
+            $errors = \Config\Services::validation()->getErrors();
+
+            return redirect()->back()->withInput()->with('errors', $errors);
+        }
+
+        $image = $this->request->getFile('cover');
         //Generate nama file yang unik
         $imageName = $image->getRandomName();
         //Pindahkan file ke direktori penyimpanan
-        $image->move(ROOTPATH .'public/asstes/cover', $imageName);
+        $image->move(ROOTPATH . 'public/asstes/cover', $imageName);
 
         $data = [
             'nama_film' => $this->request->getPost('nama_film'),
@@ -59,19 +99,23 @@ class Film extends BaseController
         return redirect()->to('/film');
     }
 
-    public function film_by_id(){
+    public function film_by_id()
+    {
         dd($this->Film->getDataByID(1));
     }
 
-    public function film_by_genre(){
+    public function film_by_genre()
+    {
         dd($this->Film->getDataBy("Horror"));
     }
 
-    public function film_order(){
+    public function film_order()
+    {
         dd($this->Film->getOrderBy());
     }
 
-    public function film_limit_five(){
+    public function film_limit_five()
+    {
         dd($this->Film->getLimit());
     }
 }
