@@ -12,53 +12,53 @@
                         </div>
                         <div class="col-md-6 text-end">
                             <a href="/film/add" class="btn btn-primary m-1 mt-2">Tambah Data</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-body">
-                <table class="table table-hover">
-                    <tr>
-                        <th>No.</th>
-                        <th>Cover</th>
-                        <th>Nama Film</th>
-                        <th>Genre</th>
-                        <th>Duration</th>
-                        <th>Action</th>
-                    </tr>
-    
-                    <?php $i = 1;
-                    foreach ($data_film as $film): ?>
+                <div class="card-body">
+                    <table class="table table-hover">
                         <tr>
-                            <td>
-                                <?= $i++; ?>
-                            </td>
-                            <td>
-                                <img src="/assets/cover/<?= $film["cover"] ?> " alt="Image" width="35px" height="50px">
-                            </td>
-                            <td>
-                                <?= $film["nama_film"] ?>
-                            </td>
-                            <td>
-                                <?= $film["nama_genre"] ?>
-                            </td>
-                            <td>
-                                <?= $film["duration"] ?>
-                            </td>
-                            <td>
-                                <a href="" class="btn btn-success">Update</a>
-                                <a href="" class="btn btn-danger">Delete</a>
-                            </td>
+                            <th>No.</th>
+                            <th>Cover</th>
+                            <th>Nama Film</th>
+                            <th>Genre</th>
+                            <th>Duration</th>
+                            <th>Action</th>
                         </tr>
-                    <?php endforeach; ?>
-    
-                </table>
+
+                        <?php $i = 1;
+                        foreach ($data_film as $film): ?>
+                            <tr>
+                                <td>
+                                    <?= $i++; ?>
+                                </td>
+                                <td>
+                                    <img src="/assets/cover/<?= $film["cover"] ?> " alt="Image" width="35px" height="50px">
+                                </td>
+                                <td>
+                                    <?= $film["nama_film"] ?>
+                                </td>
+                                <td>
+                                    <?= $film["nama_genre"] ?>
+                                </td>
+                                <td>
+                                    <?= $film["duration"] ?>
+                                </td>
+                                <td>
+                                    <a href="/film/update" <?= $film["id"]; ?>" class="btn btn-success">Update</a>
+                                    <a href="" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+
+                    </table>
+                </div>
             </div>
+
         </div>
-
     </div>
-</div>
 
-<!-- import JS -->
-<script src="/assets/js/bootstrap.min.js"></script>
+    <!-- import JS -->
+    <script src="/assets/js/bootstrap.min.js"></script>
 
-<?= $this->endSection() ?>
+    <?= $this->endSection() ?>

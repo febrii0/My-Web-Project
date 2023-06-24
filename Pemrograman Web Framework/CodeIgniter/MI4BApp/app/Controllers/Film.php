@@ -45,6 +45,81 @@ class Film extends BaseController
         return view("film/add", $data);
     }
 
+    public function update($id)
+    {
+        $data['v_genre'] = $this->Genre->getAllData();
+        $data['errors'] = session('errors');
+        $data['v_film'] = $this->Film->getDataByID($id);
+        return view('film/update', $data);
+    }
+
+
+    public function edit()
+    {
+        $validation = $this->validate([
+            'nama_film' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom Nama Film harus diisi.'
+                ]
+            ],
+            'id_genre' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom Genre harus diisi.'
+                ]
+            ],
+            'duration' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom Durasi harus diisi.'
+                ]
+            ],
+            'cover' => [
+                'rules' => 'mime_in[cover]|mime_in[cover,image/jpg,image/jpeg,image/png]|max_size[cover,2048]',
+                'errors' => [
+                    'mime_in' => 'Tipe file pada kolom Cover harus berupa JPG, JPEG, atau PNG.',
+                    'max_size' => 'Ukuran file pada kolom Cover melebihi batas maximum.'
+                ]
+            ]
+        ]);
+        if (!$validation) {
+            $errors = \Config\Services::validation()->getErrors();
+
+            return redirect()->back()->withInput()->with('errors', $errors);
+        }
+
+        // mengambil data lama
+        $film = $this->Film->find($this->request->getPost('id'));
+        // tambah request id
+        $data = [
+            'id' => $this->request->getPost('id'),
+            'nama_film' => $this->request->getPost('nama_film'),
+            'id_genre' => $this->request->getPost('id_genre'),
+            'duration' => $this->request->getPost('duration'),
+        ];
+        // cek apakah ada cover yang diupload
+        $cover = $this->request->getFile('cover');
+        if ($cover->isValid() && !$cover->hasMoved()) {
+            // generate nama file yang unik
+            $imageName = $cover->getRandomName();
+            // pindahkan file ke direktori penyimpanan
+            $cover->move(ROOTPATH . 'public/assets/cover/' . $imageName);
+            // hapus file gambar lama jika ada
+            if ($film['cover']) {
+                unlink(ROOTPATH . 'public/assets/cover/' . $film['cover']);
+            }
+            // jika ada tambahan array cover pada variable $data
+            $data['$cover'] = $imageName;
+        }
+
+        $this->Film->save($data);
+        // ubah pesannya
+        session()->setFlashdata('success', 'Data berhasil diperbarui.');
+        return redirect()->to('/film');
+    }
+
+
     public function store()
     {
 
@@ -71,7 +146,7 @@ class Film extends BaseController
                 'rules' => 'uploaded[cover]|mime_in[cover,image/jpg,image/jpeg,image/png]|max_size[cover,2048]',
                 'errors' => [
                     'uploaded' => 'Kolom Cover harus berisi file.',
-                    'mime_in' => 'Tipe file pada kolom Cover harus berupa jpg,jpeg, atau png.',
+                    'mime_in' => 'Tipe file pada kolom Cover harus berupa JPG, JPEG, atau PNG.',
                     'max_size' => 'Ukuran file pada kolom Cover melebihi batas maximum.'
                 ]
             ]
@@ -98,25 +173,5 @@ class Film extends BaseController
         $this->Film->save($data);
         session()->setFlashdata('success', 'Data berhasil disimpan.'); // tambahkan ini
         return redirect()->to('/film');
-    }
-
-    public function film_by_id()
-    {
-        dd($this->Film->getDataByID(1));
-    }
-
-    public function film_by_genre()
-    {
-        dd($this->Film->getDataBy("Horror"));
-    }
-
-    public function film_order()
-    {
-        dd($this->Film->getOrderBy());
-    }
-
-    public function film_limit_five()
-    {
-        dd($this->Film->getLimit());
     }
 }
