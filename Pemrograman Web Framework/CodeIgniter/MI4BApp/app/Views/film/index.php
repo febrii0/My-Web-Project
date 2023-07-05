@@ -45,7 +45,8 @@
                                     <?= $film["duration"] ?>
                                 </td>
                                 <td>
-                                    <a href="/film/update/<?= $film["id"]; ?>" class="btn btn-success">Update</a>
+                                    <a href="/film/update/<?= encryptUrl($film["id"]); ?>"
+                                        class="btn btn-success">Update</a>
                                     <a class="btn btn-danger" onclick="return confirmDelete()">Delete</a>
                                 </td>
                             </tr>
@@ -74,7 +75,7 @@
                 .then((willDelete) => {
                     if (willDelete) {
 
-                        window.location.href = "/film/destroy/<?= $film['id'] ?>";
+                        window.location.href = "/film/destroy/<?= encryptUrl($film['id']) ?>";
 
                     } else {
                         swal("Data tidak jadi dihapus!");

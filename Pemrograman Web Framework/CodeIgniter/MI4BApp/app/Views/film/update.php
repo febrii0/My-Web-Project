@@ -36,7 +36,7 @@
                                 <label for="genre" class="form-label">Genre</label>
                                 <select name="id_genre" id="genre" class="form-control <?= isset($errors['id_genre']) ? 'is-invalid ' : ''; ?>" name="id_genre" value="<?= old('id_genre'); ?>">
                                     <option value="">PILIH..</option>
-                                    <?php foreach ($v_genre as $g) : ?>
+                                    <?php foreach ($semuaGenre as $g) : ?>
                                         <!-- tambahkan kondisi ini -->
                                         <?php if ($semuaFilm['id_genre'] == $g['id']) : ?>
                                             <option value="<?= $g["id"] ?>" selected><?= $g["nama_genre"] ?></option>

@@ -39,23 +39,26 @@ class Film extends BaseController
 
     public function add()
     {
-        $data["v_genre"] = $this->Genre->getAllData();
+        $data["semuaGenre"] = $this->Genre->getAllData();
         $data["errors"] = session('errors');
         return view("film/add", $data);
     }
 
     public function update($id)
     {
-        $data['v_genre'] = $this->Genre->getAllData();
-        $data['errors'] = session('errors');
-        $data['semuaFilm'] = $this->Film->getDataByID($id);
-        return view('film/update', $data);
+        $decryptedId = decryptUrl($id);
+        $data["semuaGenre"] = $this->Genre->getAllData();
+        $data["errors"] = session('errors');
+        $data["semuaFilm"] = $this->Film->getDataByID($decryptedId);
+        return view("film/update", $data);
     }
 
     public function destroy($id)
     {
-        $this->Film->delete($id);
+        $decryptedId = decryptUrl($id);
+        $this->Film->delete($decryptedId);
         session()->setFlashdata('success', 'Data berhasil dihapus.');
+
         return redirect()->to('/film');
     }
 
