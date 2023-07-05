@@ -13,7 +13,7 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <?php foreach ($v_film as $film): ?>
+                                <?php foreach ($semuaFilm as $film): ?>
                                     <div class="col-md-3">
                                         <div class="card">
                                             <img src="/assets/cover/<?= $film["cover"] ?>" class="card-img-top">

@@ -17,16 +17,19 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="/film/edit" method="POST" enctype="multipart/form-data">
+                    <form action="/film/update" method="POST" enctype="multipart/form-data">
                         <div class="row">
                             <!-- tambahkan film input id -->
-                            <input type="hidden" value="<?= $semuaFilm["id"]; ?>" name="id">
+                            <input type="hidden" value="<?= $film["id"]; ?>" name="id">
                             <div class="col-md-6">
                                 <label for="nama_film" class="form-label">Nama Film</label>
                                 <!-- tambahkan kondisi pada value -->
-                                <input type="text" class="form-control <?= isset($errors['nama_film']) ? 'is-invalid ' : ''; ?>" id="nama_film" name="nama_film" value="<?= isset($errors['nama_film']) ? old('nama_film') : $semuaFilm["nama_film"]; ?>">
+                                <input type="text"
+                                    class="form-control <?= isset($errors['nama_film']) ? 'is-invalid ' : ''; ?>"
+                                    id="nama_film" name="nama_film"
+                                    value="<?= isset($errors['nama_film']) ? old('nama_film') : $film["nama_film"]; ?>">
 
-                                <?php if (isset($errors['nama_film'])) : ?>
+                                <?php if (isset($errors['nama_film'])): ?>
                                     <div class="invalid-feedback">
                                         <?= $errors['nama_film'] ?>
                                     </div>
@@ -34,18 +37,20 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="genre" class="form-label">Genre</label>
-                                <select name="id_genre" id="genre" class="form-control <?= isset($errors['id_genre']) ? 'is-invalid ' : ''; ?>" name="id_genre" value="<?= old('id_genre'); ?>">
+                                <select name="id_genre" id="genre"
+                                    class="form-control <?= isset($errors['id_genre']) ? 'is-invalid ' : ''; ?>"
+                                    name="id_genre" value="<?= old('id_genre'); ?>">
                                     <option value="">PILIH..</option>
-                                    <?php foreach ($v_genre as $g) : ?>
+                                    <?php foreach ($v_genre as $g): ?>
                                         <!-- tambahkan kondisi ini -->
-                                        <?php if ($semuaFilm['id_genre'] == $g['id']) : ?>
-                                            <option value="<?= $g["id"] ?>" selected><?= $g["nama_genre"] ?></option>
-                                        <?php else : ?>
+                                        <?php if ($film['id_genre'] == $g['id']): ?>
+                                            <option value="<?= $g["id"] ?>"><?= $g["nama_genre"] ?></option>
+                                        <?php else: ?>
                                             <option value="<?= $g["id"] ?>"><?= $g["nama_genre"] ?></option>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
                                 </select>
-                                <?php if (isset($errors['id_genre'])) : ?>
+                                <?php if (isset($errors['id_genre'])): ?>
                                     <div class="invalid-feedback">
                                         <?= $errors['id_genre'] ?>
                                     </div>
@@ -54,8 +59,11 @@
                             <div class="col-md-6">
                                 <label for="duration" class="form-label">Durasi</label>
                                 <!-- tambahkan kondisi ini pada value -->
-                                <input type="text" class="form-control <?= isset($errors['duration']) ? 'is-invalid ' : ''; ?>" id="duration" name="duration" value=" <?= isset($errors['nama_film']) ? old('duration') : $semuaFilm["duration"]; ?>">
-                                <?php if (isset($errors['duration'])) : ?>
+                                <input type="text"
+                                    class="form-control <?= isset($errors['duration']) ? 'is-invalid ' : ''; ?>"
+                                    id="duration" name="duration"
+                                    value=" <?= isset($errors['nama_film']) ? old('duration') : $film["duration"]; ?>">
+                                <?php if (isset($errors['duration'])): ?>
                                     <div class=" invalid-feedback">
                                         <?= $errors['duration'] ?>
                                     </div>
@@ -65,8 +73,10 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <label for="cover" class="form-label">Cover</label>
-                                    <input type="file" class="form-control <?= isset($errors['cover']) ? 'is-invalid' : ''; ?>" id="cover" name="cover" value="<?= old('cover'); ?>">
-                                    <?php if (isset($errors['cover'])) : ?>
+                                    <input type="file"
+                                        class="form-control <?= isset($errors['cover']) ? 'is-invalid' : ''; ?>"
+                                        id="cover" name="cover" value="<?= old('cover'); ?>">
+                                    <?php if (isset($errors['cover'])): ?>
                                         <div class="invalid-feedback">
                                             <?= $errors['cover'] ?>
                                         </div>
@@ -77,9 +87,9 @@
                             <div class="col-md-3">
                                 <label class="form-label">Cover Saat Ini</label>
                                 <div class="mb-2">
-                                    <?php if ($semuaFilm["cover"]) : ?>
-                                        <img src="/assets/cover/<?= $semuaFilm["cover"]; ?>" width="100">
-                                    <?php else : ?>
+                                    <?php if ($film["cover"]): ?>
+                                        <img src="/assets/cover/<?= $film["cover"]; ?>" width="100">
+                                    <?php else: ?>
                                         <span>Tidak ada gambar lama</span>
                                     <?php endif; ?>
                                 </div>

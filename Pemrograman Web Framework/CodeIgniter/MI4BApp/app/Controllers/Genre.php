@@ -31,8 +31,8 @@ class Genre extends BaseController
     }
 
     public function all(){
-        $data['v_genre'] = $this->Genre->getAllData();
-        return view("genre/v_genre",$data);
+        $data['semuaGenre'] = $this->Genre->getAllData();
+        return view("genre/semuaGenre",$data);
     }
 
     // public function Genre_by_id(){

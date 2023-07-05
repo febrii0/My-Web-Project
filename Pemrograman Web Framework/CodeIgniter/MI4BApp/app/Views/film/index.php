@@ -45,8 +45,8 @@
                                     <?= $film["duration"] ?>
                                 </td>
                                 <td>
-                                    <a href="/film/update" <?= $film["id"]; ?>" class="btn btn-success">Update</a>
-                                    <a href="" class="btn btn-danger">Delete</a>
+                                    <a href="/film/update/<?= $film["id"]; ?>" class="btn btn-success">Update</a>
+                                    <a class="btn btn-danger" onclick="return confirmDelete()">Delete</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -60,5 +60,28 @@
 
     <!-- import JS -->
     <script src="/assets/js/bootstrap.min.js"></script>
+
+    <!-- tambahkan dari sini  -->
+    <script>
+        function confirmDelete() {
+            swal({
+                title: "Apakah Anda yakin?",
+                text: "setelah dihapus! data anda akan benar-benar hilang!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+
+                        window.location.href = "/film/destroy/<?= $film['id'] ?>";
+
+                    } else {
+                        swal("Data tidak jadi dihapus!");
+                    }
+                });
+        }
+    </script>
+    <!-- sampai sini -->
 
     <?= $this->endSection() ?>

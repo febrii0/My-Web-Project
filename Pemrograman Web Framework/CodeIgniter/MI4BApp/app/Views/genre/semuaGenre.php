@@ -20,7 +20,7 @@
                         <th>Action</th>
                     </tr>
                     <?php $i = 1; ?>
-                    <?php foreach ($v_genre as $genre): ?>
+                    <?php foreach ($semuaGenre as $genre): ?>
                         <tr>
                             <td>
                                 <?= $i++; ?>

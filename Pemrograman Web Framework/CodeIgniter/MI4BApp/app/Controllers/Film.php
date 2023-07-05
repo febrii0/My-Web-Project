@@ -29,13 +29,12 @@ class Film extends BaseController
         //array
         $data['data_film'] = $this->Film->getAllDataJoin();
         return view("film/index", $data);
-
     }
 
     public function all()
     {
-        $data['v_film'] = $this->Film->getAllDataJoin();
-        return view("film/v_film", $data);
+        $data['semuaFilm'] = $this->Film->getAllDataJoin();
+        return view("film/semuaFilm", $data);
     }
 
     public function add()
@@ -49,8 +48,15 @@ class Film extends BaseController
     {
         $data['v_genre'] = $this->Genre->getAllData();
         $data['errors'] = session('errors');
-        $data['v_film'] = $this->Film->getDataByID($id);
+        $data['semuaFilm'] = $this->Film->getDataByID($id);
         return view('film/update', $data);
+    }
+
+    public function destroy($id)
+    {
+        $this->Film->delete($id);
+        session()->setFlashdata('success', 'Data berhasil dihapus.');
+        return redirect()->to('/film');
     }
 
 

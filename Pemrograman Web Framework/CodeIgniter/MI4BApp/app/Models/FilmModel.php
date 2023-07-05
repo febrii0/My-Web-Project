@@ -79,5 +79,4 @@ class FilmModel extends Model
     {
         return $this->limit(10)->get()->getResultArray();
     }
-
 }
